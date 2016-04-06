@@ -9,9 +9,16 @@ angular.module('ngTimeLine', [])
                 range: '@'
             },
             link: function(scope, element, attrs) {
-                element.css('width', '40');
-                element.css('left', '10%');
-                console.log(scope.Item);
+                element.css('width', getWidth());
+                element.css('left', getStart());
+                
+                function getStart(){
+                    return (((scope.Item.Start - scope.minRange) * 100) / scope.range) + '%';
+                }    
+                
+                function getWidth(){
+                    return (((scope.Item.End - scope.Item.Start) * 100) / scope.range) + '%';
+                }    
             }
         }
     })
