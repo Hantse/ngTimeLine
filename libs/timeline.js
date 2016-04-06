@@ -9,15 +9,18 @@ angular.module('ngTimeLine', [])
                 range: '@'
             },
             link: function(scope, element, attrs) {
+
+                scope.range = scope.maxRange - scope.minRange;   
+                
                 element.css('width', getWidth());
                 element.css('left', getStart());
                 
                 function getStart(){
-                    return (((scope.Item.Start - scope.minRange) * 100) / scope.range) + '%';
+                    return (((parseInt(scope.Item.Start) - parseInt(scope.minRange)) * 100) / parseInt(scope.range)) + '%';
                 }    
                 
                 function getWidth(){
-                    return (((scope.Item.End - scope.Item.Start) * 100) / scope.range) + '%';
+                    return (((parseInt(scope.Item.End) - parseInt(scope.Item.Start)) * 100) / parseInt(scope.range)) + '%';
                 }    
             }
         }
@@ -42,8 +45,6 @@ angular.module('ngTimeLine', [])
                     + '</ul>';
             },
             link: function(scope, element, attrs) {
-                console.log(scope);
-                
                 if (scope.timeIndicator != null && scope.timeIndicator != undefined && scope.timeIndicator) {
                     element.append('<time-indicator />')
                 }
@@ -68,8 +69,6 @@ angular.module('ngTimeLine', [])
                     + '</ul>';
             },
             link: function(scope, element, attrs) {
-                
-                console.log(scope);
                 
                 if(scope.timeIndicator == undefined || scope.timeIndicator == null) 
                     scope.timeIndicator = false;
